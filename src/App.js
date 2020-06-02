@@ -1,24 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Layout  } from 'antd';
+
+import HeaderC from './components/HeaderC';
+import SiderC from './components/SiderC';
+import ContentC from './components/ContentC';
+import FooterC from './components/FooterC';
+
+const { Header, Footer, Sider, Content } = Layout;
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Layout>
+        <Header style={{padding:15}}>
+            <HeaderC />
+        </Header>
+      <Layout>
+          <Sider style={{}}>
+              <SiderC />
+          </Sider>
+            <Layout>
+                <Content style={{ padding: '0 50px' }}>
+                    <ContentC />
+                </Content>
+               <Footer style={{ textAlign: 'center' }}>
+                    <FooterC />
+               </Footer>
+            </Layout>
+      </Layout>
+    </Layout>
+
     </div>
   );
 }
