@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Row, Col , Breadcrumb , Table, Radio, Divider } from 'antd';
+import {Row, Col , Breadcrumb , Table, Radio, Divider , Button } from 'antd';
 
 
 const columns = [
@@ -56,9 +56,7 @@ const rowSelection = {
 };
 
 const Device = () => {
-
-  const [selectionType, setSelectionType] = useState('checkbox');
-
+ 
   return (
     <div>
       <Breadcrumb style={{ margin: '16px 0' }}>
@@ -67,27 +65,15 @@ const Device = () => {
       </Breadcrumb>
         <div id="ContentC-container-box" style={{background: '#fff', padding:24 , minHeight:800 }}>
 
-            <Radio.Group
-              onChange={({ target: { value } }) => {
-                setSelectionType(value);
-              }}
-              value={selectionType}
-            >
-              <Radio value="checkbox">Checkbox</Radio>
-              <Radio value="radio">radio</Radio>
-            </Radio.Group>
-
-            <Divider />
-
+          <Button type="primary" style={{float:'right'}} >등록해제</Button>
+          <Button type="primary" style={{float:'right', marginRight:'4px'}} >기기등록</Button>
             <Table
               rowSelection={{
-                type: selectionType,
-                ...rowSelection,
+                type:rowSelection,
               }}
               columns={columns}
               dataSource={data}
             />
-
 
         </div>
     </div>
