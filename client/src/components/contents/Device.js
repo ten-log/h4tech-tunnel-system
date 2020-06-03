@@ -1,81 +1,116 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect } from 'react';
 import {Row, Col , Breadcrumb , Table, Radio, Divider , Button } from 'antd';
 
+const Device = () => {  // userState란  기본값을 () 안에 넣어주고 첫번째인자는 상태의 값 두번째는 상태를 결정하는 함수입니다.
 
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    render: text => <a>{text}</a>,
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-  },
-];
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-  },
-  {
-    key: '4',
-    name: 'Disabled User',
-    age: 99,
-    address: 'Sidney No. 1 Lake Park',
-  },
-];
+let [data, setData] = useState(null);
 
-// rowSelection object indicates the need for row selection
-const rowSelection = {
-  onChange: (selectedRowKeys, selectedRows) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-  },
-  getCheckboxProps: record => ({
-    disabled: record.name === 'Disabled User', // Column configuration not to be checked
-    name: record.name,
-  }),
-};
+    useEffect(()=>{
+    fetch('http://localhost:5000/content/devicetable')
+        .then(res=>res.json())
+      //  .then(res=>{if(){
+        //  json 의 렝스 구하고 여기서 숫자값을 등록 대기와 허가로 구분해주는생각을일단 하고있음
+    //    }})
+        .then(res=>setData(res))
+  })
 
-const Device = () => {
- 
+
+/*  let a =1;
+  data = [
+    {
+      key: '1',
+      User: 'JohnBrown',
+      Device: '잘만든 카메라',
+      Location: '세종 터미널  ',
+      Phone: '01012341234',
+      Admit: 0,
+    },
+    {
+      key: '2',
+      User: '갈만배',
+      Device: '잘만든 티비',
+      Location: '대전 터미널  ',
+      Phone: '01012341234',
+      Admit: 0,
+    },
+    {
+      key: '3',
+      User: '몽쉘',
+      Device: '잘만든 냉장고',
+      Location: '개인 터미널  ',
+      Phone: '01012341234',
+      Admit: 0,
+    },
+    {
+      key: '4',
+      User: '미네랄워터',
+      Device: '급하게 만든 에어컨',
+      Location: '국세청 터미널  ',
+      Phone: '01012341234',
+      Admit: a ==1 ? '등록완료' : '등록대기',
+    },
+  ];
+*/
+
+  const columns = [
+    {
+      title: 'User',
+      dataIndex: 'User',
+      render: text => <a>{text}</a>,
+    },
+    {
+      title: 'Device',
+      dataIndex: 'Device',
+    },
+    {
+      title: 'Location',
+      dataIndex: 'Location',
+    },
+    {
+      title: 'Phone',
+      dataIndex: 'Phone',
+    },
+    {
+      title: 'Admit',
+      dataIndex: 'Admit',
+    },
+  ];
+  // rowSelection object indicates the need for row selection
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+    },
+    getCheckboxProps: record => ({
+      disabled: record.name === 'Disabled User', // Column configuration not to be checked 매니져일때 이걸로 해서 매니져는 조종 못하게 해야함
+      name: record.name,
+    }),
+  };
+
+  const [selectionType , setSelectionType ] = useState('checkbox');   //  체크박스에서 조작 못하게 하는부분에 필요함
+
+  let a = ()=>{
+    console.log("asdf");
+  }
   return (
     <div>
+      <form onSubmit={a} >
       <Breadcrumb style={{ margin: '16px 0' }}>
         <Breadcrumb.Item>Menu</Breadcrumb.Item>
         <Breadcrumb.Item>Location 3</Breadcrumb.Item>
       </Breadcrumb>
         <div id="ContentC-container-box" style={{background: '#fff', padding:24 , minHeight:800 }}>
-
-          <Button type="primary" style={{float:'right'}} >등록해제</Button>
-          <Button type="primary" style={{float:'right', marginRight:'4px'}} >기기등록</Button>
-            <Table
-              rowSelection={{
-                type:rowSelection,
-              }}
-              columns={columns}
-              dataSource={data}
-            />
-
+            {data?  <Table
+                      rowSelection={{
+                        type: selectionType,
+                      ...rowSelection,
+                      }}
+                      columns={columns}
+                      dataSource={data}
+                    />: null}
+                    <button  type="submit" style={{float:'right'}} >등록삭제</button>
+                    <button onClick={() => {console.log('왜안에선 안')}} type="submit" style={{float:'right', marginRight:'4px'}} >기기등록</button>
         </div>
+        </form>
     </div>
   );
 };

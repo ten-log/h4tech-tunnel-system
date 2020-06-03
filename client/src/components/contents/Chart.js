@@ -18,10 +18,7 @@ export default class Chart extends React.Component{
          .then(res=>res.json())
          .then(result=> this.setState({data: result ,...result}));
  }
-//      this.setState({chartid:data[0].id})
-    chartValue(){
-        //  this.setState({data: this.data, ...config})
-    }
+ 
     render(){
       const {chartid , data} = this.state;
       let config ={
