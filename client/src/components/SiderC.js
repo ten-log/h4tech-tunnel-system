@@ -13,8 +13,9 @@ function SiderC(){
           Dashboard
         </Menu.Item>
           <SubMenu key="sub1"  icon={<MailOutlined />}  title={<span>Menu</span> }>
-            <Menu.Item key='location1' >Location 1</Menu.Item>
-            <Menu.Item key='location2' >Location 2</Menu.Item>
+            <Menu.Item key='location1' >Camera</Menu.Item>
+            <Menu.Item key='location2' >Chart</Menu.Item>
+            <Menu.Item key='location3' >Device</Menu.Item>
           </SubMenu>
       </Menu>
     </div>

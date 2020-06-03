@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Breadcrumb , Slider ,Row, Col} from 'antd';
+import {Breadcrumb, Slider ,Row, Col} from 'antd';
 import Iframe from 'react-iframe'
 import { useFullScreen } from 'react-hooks-full-screen'
 
@@ -11,7 +11,7 @@ import { useFullScreen } from 'react-hooks-full-screen'
       <button onClick={() => setShowFullScreen(!showFullScreen)}>Toggle</button>
     </div>
 */
-const ContentC =()=>{
+const Camera =()=>{
 
   const [showFullScreen, setShowFullScreen] = useState(false)
   useFullScreen('big', showFullScreen)
@@ -28,11 +28,12 @@ const ContentC =()=>{
 
   return (
         <div>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Menu</Breadcrumb.Item>
-            <Breadcrumb.Item>CameraMain</Breadcrumb.Item>
-          </Breadcrumb>
-            <div id="camera-container-board" style={{background: '#fff', padding:24 , minHeight:800 }}>
+              <Breadcrumb style={{ margin: '16px 0' }}>
+                <Breadcrumb.Item>Menu</Breadcrumb.Item>
+                <Breadcrumb.Item>Location 1</Breadcrumb.Item>
+              </Breadcrumb>
+            <div id="ContentC-container-box" style={{background: '#fff', padding:24 , minHeight:800 }}>
+
             <Row gutter={[16, 16]}>
               <Col  id="big" span={12}  style={{background: 'gray' ,height:'400px' }} >
 
@@ -61,12 +62,12 @@ const ContentC =()=>{
               </Row>
               </Col>
             </Row>
-            </div>
+          </div>
         </div>
   );
 }
 
-export default ContentC;
+export default Camera;
 
 
 
