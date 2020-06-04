@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 
 //YfJT7rkpQB0updsdHLGWrvhBJfcfzNNawYDNIyQXJz0IViGf75O8EBPKSdvw2rF
-app.get('/haeder/usertable', (req, res)=>{
+app.get('/api/haeder/usertable', (req, res)=>{
   pool.connect().then(client => {
     client.query('select user_name from usertable').then(result => {
       client.release();  //매번 db를 쓰면 쓰고 종료했다는 표시 해줘야함
@@ -40,7 +40,7 @@ app.get('/haeder/usertable', (req, res)=>{
 });
 
 //co2 chart
-app.get('/content/co2table', (req, res)=>{
+app.get('/api/content/co2table', (req, res)=>{
   pool.connect().then(client => {
     client.query('select year, cotwo from co2table').then(result => {
       client.release();  //매번 db를 쓰면 쓰고 종료했다는 표시 해줘야함
@@ -55,7 +55,7 @@ app.get('/content/co2table', (req, res)=>{
 });
 
 // devicetable
-app.get('/content/devicetable', (req, res)=>{
+app.get('/api/content/devicetable', (req, res)=>{
 
   let sql = 'select id as "key" , de_user as "User" , de_name as "Device" , de_locat as "Location" , de_user_phone as "Phone" , de_admit as "Admit"  from devicetable';
   pool.connect().then(client => {
@@ -71,7 +71,7 @@ app.get('/content/devicetable', (req, res)=>{
   })
 });
 
-app.post('/content/devicetable', (req, res)=>{
+app.post('/api/content/devicetable', (req, res)=>{
   let id = req.body.key;
   let de_user= req.body.User;
   let de_name = req.body.Device;

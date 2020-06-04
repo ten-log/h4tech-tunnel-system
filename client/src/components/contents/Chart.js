@@ -14,11 +14,11 @@ export default class Chart extends React.Component{
   }
 
   componentDidMount() {
-     fetch('http://localhost:5000/content/co2table')
+     fetch('http://localhost:5000/api/content/co2table')
          .then(res=>res.json())
          .then(result=> this.setState({data: result ,...result}));
  }
- 
+
     render(){
       const {chartid , data} = this.state;
       let config ={

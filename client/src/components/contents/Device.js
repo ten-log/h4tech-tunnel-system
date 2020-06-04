@@ -1,19 +1,19 @@
 import React, { useState ,useEffect } from 'react';
 import {Row, Col , Breadcrumb , Table, Radio, Divider , Button } from 'antd';
+import CreateDevice from './CreateDevice';
 
 const Device = () => {  // userState란  기본값을 () 안에 넣어주고 첫번째인자는 상태의 값 두번째는 상태를 결정하는 함수입니다.
 
 let [data, setData] = useState(null);
 
     useEffect(()=>{
-    fetch('http://localhost:5000/content/devicetable')
+    fetch('http://localhost:5000/api/content/devicetable')
         .then(res=>res.json())
       //  .then(res=>{if(){
         //  json 의 렝스 구하고 여기서 숫자값을 등록 대기와 허가로 구분해주는생각을일단 하고있음
     //    }})
         .then(res=>setData(res))
-  })
-
+  }, []);
 
 /*  let a =1;
   data = [
@@ -81,36 +81,21 @@ let [data, setData] = useState(null);
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
     },
     getCheckboxProps: record => ({
-      disabled: record.name === 'Disabled User', // Column configuration not to be checked 매니져일때 이걸로 해서 매니져는 조종 못하게 해야함
-      name: record.name,
+      disabled: record.User === 'admin', // Column configuration not to be checked 매니져일때 이걸로 해서 매니져는 조종 못하게 해야함
+      name: record.User,
     }),
   };
 
-  const [selectionType , setSelectionType ] = useState('checkbox');   //  체크박스에서 조작 못하게 하는부분에 필요함
-
-  let a = ()=>{
-    console.log("asdf");
-  }
   return (
     <div>
-      <form onSubmit={a} >
       <Breadcrumb style={{ margin: '16px 0' }}>
         <Breadcrumb.Item>Menu</Breadcrumb.Item>
         <Breadcrumb.Item>Location 3</Breadcrumb.Item>
       </Breadcrumb>
         <div id="ContentC-container-box" style={{background: '#fff', padding:24 , minHeight:800 }}>
-            {data?  <Table
-                      rowSelection={{
-                        type: selectionType,
-                      ...rowSelection,
-                      }}
-                      columns={columns}
-                      dataSource={data}
-                    />: null}
-                    <button  type="submit" style={{float:'right'}} >등록삭제</button>
-                    <button onClick={() => {console.log('왜안에선 안')}} type="submit" style={{float:'right', marginRight:'4px'}} >기기등록</button>
+            {data?  <Table rowSelection={{type: 'checkbox',...rowSelection, }} columns={columns} dataSource={data} />: null }
+            <CreateDevice />
         </div>
-        </form>
     </div>
   );
 };
@@ -118,6 +103,12 @@ let [data, setData] = useState(null);
 export default Device;
 
 /*
+//    <button  type="submit" style={{float:'right'}} >등록삭제</button>
+//    <button onClick={() => {console.log('수정이요')}} type="submit" style={{float:'right', marginRight:'4px'}} >등록수정</button>
+  //  <button onClick={() => {console.log('왜안에선 안')}} type="submit" style={{float:'right', marginRight:'4px'}} >기기등록</button>
+
+
+
 import React from 'react';
 import { Row, Col , Breadcrumb} from 'antd';
 
