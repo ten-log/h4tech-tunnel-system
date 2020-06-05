@@ -1,13 +1,13 @@
 import React from 'react';
 import Camera from './contents/Camera';
 import Chart from './contents/Chart';
-import Device from './contents/Device';
-
+import Device from './contents/device/Device';
+import EventSms from './contents/EventSms';
 const ContentC =()=>{
 
   return (
         <div>
-              <Device />
+              <EventSms />
         </div>
   );
 }

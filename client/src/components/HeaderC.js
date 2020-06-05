@@ -15,7 +15,7 @@ export default class HeaderC extends React.Component{
          fetch('http://localhost:5000/api/haeder/usertable' ,{
            method:'GET', // get방식으로 값을 가져온다. 서버에서 get으로 넘겨줬다.
            headers:{    //API 응답에 따른 헤더 정부중 json 타입으로 서버값을 수령하는것을 의미
-                'Content-Type':'application/json'
+                'content-Type':'application/json'
            }
          })
              .then(res=>res.json())

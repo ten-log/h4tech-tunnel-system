@@ -1,10 +1,12 @@
 import React, { useState ,useEffect } from 'react';
 import {Row, Col , Breadcrumb , Table, Radio, Divider , Button } from 'antd';
-import CreateDevice from './CreateDevice';
+import DeviceCreate from './DeviceCreate';
+import DeviceDelete from './DeviceDelete';
 
 const Device = () => {  // userState란  기본값을 () 안에 넣어주고 첫번째인자는 상태의 값 두번째는 상태를 결정하는 함수입니다.
 
 let [data, setData] = useState(null);
+let [de_id, setde_id] = useState(null);
 
     useEffect(()=>{
     fetch('http://localhost:5000/api/content/devicetable')
@@ -79,6 +81,7 @@ let [data, setData] = useState(null);
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      setde_id(selectedRowKeys);
     },
     getCheckboxProps: record => ({
       disabled: record.User === 'admin', // Column configuration not to be checked 매니져일때 이걸로 해서 매니져는 조종 못하게 해야함
@@ -94,7 +97,8 @@ let [data, setData] = useState(null);
       </Breadcrumb>
         <div id="ContentC-container-box" style={{background: '#fff', padding:24 , minHeight:800 }}>
             {data?  <Table rowSelection={{type: 'checkbox',...rowSelection, }} columns={columns} dataSource={data} />: null }
-            <CreateDevice />
+            <DeviceCreate />
+            <DeviceDelete de_id={de_id}/>
         </div>
     </div>
   );
